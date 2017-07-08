@@ -46,7 +46,7 @@ func () {
 
 ### 新项目中的尝试
 
-##### 首先上帝说要有对象
+#### 首先上帝说要有对象
 
 在目睹了一个包中，针对无数个文档有无数野生方法的惨状以后，我决定放弃这种exported package function的类C用法。我觉得使用struct抽象出对象模型，每个对象的声明周期内，都会持有一个session，在对象结束时使用session。这样的话，一个文档生命周期内所有的操作，就并不必产生多余的session对象，对mgo的并发问题也更加友好。struct拥有自己的CURD操作，感觉也更规整一些。
 
@@ -115,7 +115,7 @@ type Person struct{
 
 ```go
 func (p *Persion) GetName() ()string,error){
-	p.DB(p.DB()).Col(p.Col()),Find()
+	p.DB(p.DB()).Col(p.Col()).Find(bson.M{...}).Select(bson.M{...})
 	...
 ```
 
@@ -156,13 +156,13 @@ func foo() {
     ...
 }
 ```
-##### 一个缺点
+#### 一个缺点
 
 大概一个缺点就是，因为集成了session，每个对象在生成以后必须手动Close，否则会造成mgo的连接泄露。其实这跟每次生成session的方法是一样的，也是要成对生成释放的，也没差。
 
 ### 爬坑时间
 
-##### golang的作用域
+#### golang的作用域
 
 事情大概是这样的，有一个大文档，里面引用了某些小文档的id，（我采用的方式是手动引用，mongo其实提供了一种[reference方法](https://docs.mongodb.com/manual/reference/database-references/)）我觉得没差就没用。
 
@@ -302,6 +302,7 @@ type Person struct {
 
 mgo这个bson老哥会把我的`Field`字段置为空。那好气哦。
 内部调用的方法就是`bson.Unmarshal`，具体里面的实现这里就不多说了，代码很好找；这么做原因不懂，提了issue也没人理（好气QAQ）。
+[没人理的issue](https://github.com/go-mgo/mgo/issues/452)
 
 ### 结语
 
