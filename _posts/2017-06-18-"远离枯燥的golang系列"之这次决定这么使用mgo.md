@@ -217,8 +217,8 @@ func (d *Doc) Foo() {
 	{
 	obj1 := NewObj1()
 	runtime.SetFinalizer(obj1,func(obj interface{}){
-		obj.Close()
-	}) obj1.Close()
+		obj1.Close()
+	})
 	obj1.Load(id)
 	obj1.Exists()
 	}
@@ -226,7 +226,7 @@ func (d *Doc) Foo() {
 	{
 	obj2 := NewObj1()
 	runtime.SetFinalizer(obj1,func(obj interface{}){
-		obj.Close()
+		obj2.Close()
 	}
 	obj2.Load(id)
 	obj2.Exists()
@@ -246,8 +246,8 @@ func (d *Doc) Foo() {
 	{
 	obj1 := NewObj1()
 	runtime.SetFinalizer(obj1,func(obj interface{}){
-		obj.Close()
-	}) obj1.Close()
+		obj1.Close()
+	}) 
 	obj1.Load(id)
 	obj1.Exists()
 	}
@@ -256,7 +256,7 @@ func (d *Doc) Foo() {
 	{
 	obj2 := NewObj1()
 	runtime.SetFinalizer(obj1,func(obj interface{}){
-		obj.Close()
+		obj2.Close()
 	}
 	obj2.Load(id)
 	obj2.Exists()
