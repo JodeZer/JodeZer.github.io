@@ -21,4 +21,33 @@ CockroachDB是一款开源的newSql数据库，其底层存储使用的是RocksD
 
 首先要有一种编码方式把SQL表的行信息编码进key当中。比如给一组数据`<1,2.3,"four">`，我们可以把这个数据编码成`/1/2.3/"four"`
 
-为了可读，我们用斜杠来作为一个虚拟的分隔符。数据的编码实现方法在这里不讨论
+为了可读，我们用斜杠来作为一个虚拟的分隔符。数据的编码实现方法在这里不讨论。（然后介绍一个奇怪的不可用的编码方法，可能是想举个反例吧，就无视好了）。
+
+在讨论编码方案之前，我们先看一下要编码的SQL表数据。在CockroachDB中，每个表在创建的时候会被分配一个唯一的64位整型ID。这个表ID用来将这个表的所有KV数据联系在一起。现在来考虑下列的表和数据：
+```
+CREATE TABLE test (
+	key 		INT PRIMARY KEY,
+	floatVal  FLOAT,
+	stringVal STRING
+)
+
+INSERT INTO test VALUES(10, 4.5, "hello")
+```
+
+每个CockroachDB都必须有一个主键，这个主键可能有一到多列组成；在上述的`test`表中，主键只有单列。CockroachDB将每个非主键列的数据存储在不同的key中，以主键key值为前缀，以列的名字为后缀。比如行`<10,4.5,"hello">`在`test`表中的存储会是：
+
+name | age
+---- | ---
+`/test/10/floatVal` | `4.5`
+`/test/10/stringVal` |  `"hello"`
+
+
+在这个标书中，我们使用`/test/`来代替标识表ID，用`/floatVal`和`/stringVal`代替标识列ID（每个行都有一个表内唯一的ID）。需要注意的是，主键在我们的编码中紧跟表ID。这在CockroachDB的SQL实现中，是索引扫描的基础。
+
+
+
+
+
+
+
+
