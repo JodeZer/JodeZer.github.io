@@ -114,7 +114,7 @@ with tf.device('/gpu:0'):
 with tf.Session() as sess:
     print (sess.run(c))
 ```
-再来一个tensorflow官方给的gpu demo
+再来一个tensorflow官方给的gpu demo（这个其实我没试）
 
 `https://www.tensorflow.org/guide/using_gpu`
 
