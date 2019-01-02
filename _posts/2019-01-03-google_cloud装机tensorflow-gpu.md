@@ -18,7 +18,7 @@ comments: false
 - tensorflow-gpu
 
 ### 废话
-选ubuntu是因为据说跑DL用得最多，出问题好找，选择了最新的ubuntu。 nvidia driver与cuda套件据说比较经常在nvidia官网找版本手动安装，但是我嫌麻烦，用的是ubuntu-drivers工具。装miniconda是为了方便装tensorflow-gpu系列。没有选择anaconda是因为整个套件太大了（12G）...磁盘占用是要钱的。总之，就是在拒绝任何手工编译的原则下，完成安装。tensorflow官网有指导ubuntu16安装gpu套件，因为发行版不匹配我没有尝试...
+选ubuntu是因为据说跑DL用得最多，出问题好找，选择了最新的ubuntu。 nvidia driver与cuda套件据说比较经常在nvidia官网找版本手动安装，但是我嫌麻烦，用的是ubuntu-drivers工具。装miniconda是为了方便装tensorflow-gpu系列和cuda系列。没有选择anaconda是因为整个套件太大了（12G）...磁盘占用是要钱的。总之，就是在拒绝任何手工编译的原则下，完成安装。tensorflow官网有指导ubuntu16安装gpu套件，因为发行版不匹配我没有尝试...
 
 ### 来了
 
@@ -30,7 +30,7 @@ comments: false
 
 #### 安装显卡驱动
 
-参考`https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-ubuntu-18-04-bionic-beaver-linux`安装N卡驱动，我这里的版本是nvidia-390.77，然后重启。
+参考`https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-ubuntu-18-04-bionic-beaver-linux`安装N卡驱动，我这里的版本是nvidia-390,小版本390.77，然后重启。
 
 主要的命令是
 
